@@ -1,0 +1,15 @@
+INSERT INTO ROOM VALUES(1, '31a');
+INSERT INTO ROOM VALUES(2, '30');
+INSERT INTO ROOM VALUES(3, '19');
+
+INSERT INTO USER VALUES(1, true, true, true, true, 'login_admin', '$2y$12$mukPRyqDKsfdGvZpOE3Nce0k02pCo9sXfW.8Hlvln.tE/KZmMPMQS', 0);
+INSERT INTO USER VALUES(2, true, true, true, true, 'login_presenter', '$2y$12$mukPRyqDKsfdGvZpOE3Nce0k02pCo9sXfW.8Hlvln.tE/KZmMPMQS', 1);
+INSERT INTO USER VALUES(3, true, true, true, true, 'login_user', '$2y$12$mukPRyqDKsfdGvZpOE3Nce0k02pCo9sXfW.8Hlvln.tE/KZmMPMQS', 2);
+
+-- INSERT INTO SCHEDULE  VALUES(1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+
+-- INSERT INTO PRESENTATION VALUES(1, 'login_user', 1);
+-- INSERT INTO PRESENTATION VALUES(2, 'login_user', 1);
+--
+-- INSERT INTO PRESENTATION_USER VALUES('Presenter', 1, 1);
+-- INSERT INTO PRESENTATION_USER VALUES('Presenter', 2, 1);
