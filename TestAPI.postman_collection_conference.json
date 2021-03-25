@@ -1,0 +1,1072 @@
+{
+	"info": {
+		"_postman_id": "2a03f092-3a44-4cc2-ac6e-88c891ccc6f5",
+		"name": "TestAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RegistrationTest",
+			"item": [
+				{
+					"name": "RegisterNewUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test register user\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.login).to.eql(\"test1\");\r",
+									"    pm.expect(jsonData.password).to.eql(null);\r",
+									"    pm.expect(jsonData.isAccountNonExpired).to.eql(true);\r",
+									"    pm.expect(jsonData.isAccountNonLocked).to.eql(true);\r",
+									"    pm.expect(jsonData.isCredentialsNonExpired).to.eql(true);\r",
+									"    pm.expect(jsonData.isEnabled).to.eql(true);\r",
+									"    pm.expect(jsonData.role).to.eql(\"User\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "test1",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestCrudAdministrator",
+			"item": [
+				{
+					"name": "ShowAllUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get users\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].login).to.eql(\"login_user\");\r",
+									"    pm.expect(jsonData[1].login).to.eql(\"test1\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "login_user",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "User",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/show-users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"show-users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowAllPresenter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get presenters\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].login).to.eql(\"login_presenter\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role",
+									"value": "Presenter",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/show-users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"show-users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Add user\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.login).to.eql(\"test2\");\r",
+									"    pm.expect(jsonData.role).to.eql(\"Presenter\");\r",
+									"\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "test2",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "Presenter",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/add-user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"add-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Edit user\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "test1",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "Presenter",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Dalete user\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "test1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestCrudPresenter",
+			"item": [
+				{
+					"name": "CreatePresentation1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create presentation1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"My first presentation\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "My first presentation",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeStartPresentation",
+									"value": "2021-03-22T13:14:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeEndPresentation",
+									"value": "2021-03-22T15:14:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "31a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePresentation2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create presentation2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"My second presentation\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "My second presentation",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeStartPresentation",
+									"value": "2021-03-22T15:15:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeEndPresentation",
+									"value": "2021-03-22T18:14:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "31a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowMyPresentations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create presentation3\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].id).to.eql(1);\r",
+									"    pm.expect(jsonData[0].name).to.eql(\"My first presentation\");\r",
+									"    pm.expect(jsonData[1].id).to.eql(2);\r",
+									"    pm.expect(jsonData[1].name).to.eql(\"My second presentation\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/my-presentations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"my-presentations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditPresentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Edit presentation2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(2);\r",
+									"    pm.expect(jsonData.name).to.eql(\"My edit name second presentation\");\r",
+									"    pm.expect(jsonData.dateTimeStartPresentation).to.eql(\"2021-03-22T15:05:00.000+00:00\");\r",
+									"    pm.expect(jsonData.dateTimeEndPresentation).to.eql(\"2021-03-22T16:15:00.000+00:00\");\r",
+									"    pm.expect(jsonData.audience).to.eql(\"31a\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "My edit name second presentation",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeStartPresentation",
+									"value": "2021-03-22T15:05:00.000+00:00",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeEndPresentation",
+									"value": "2021-03-22T16:15:00.000+00:00",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "31a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/edit-presentation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"edit-presentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePresentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete presentation 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/delete-my-presentation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"delete-my-presentation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestException",
+			"item": [
+				{
+					"name": "CreatePresentation3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create presentation3 exception\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"time is busy\");\r",
+									"    pm.expect(jsonData.presentations[0].name).to.eql(\"My edit name second presentation\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "My conflict presentation",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeStartPresentation",
+									"value": "2021-03-22T16:15:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeEndPresentation",
+									"value": "2021-03-22T19:14:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "31a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePresentation4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create presentation3 exception\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"No found audience 31\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "My presentation in other room",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeStartPresentation",
+									"value": "2021-03-22T12:14:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "dateTimeEndPresentation",
+									"value": "2021-03-22T15:20:00.000+04:00",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "31",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "qwert",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "vlad",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "TestUserFunction",
+			"item": [
+				{
+					"name": "ShowSchedulePresentations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test show presentation\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData[\"31a\"][0].id).to.eql(2);\r",
+									"    pm.expect(jsonData[\"31a\"][0].name).to.eql(\"My edit name second presentation\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_presenter",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "date",
+									"value": "2021-03-22",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SubscribeToPresentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test subscribe presentation\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(2);\r",
+									"    pm.expect(jsonData.name).to.eql(\"My edit name second presentation\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "login_user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwert",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/presentation/subscribe-to-presentation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"presentation",
+								"subscribe-to-presentation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "qwert",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "vlad",
+				"type": "string"
+			}
+		]
+	}
+}
